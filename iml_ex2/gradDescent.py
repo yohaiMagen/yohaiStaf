@@ -1,4 +1,4 @@
-import ex2
+import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
@@ -33,5 +33,9 @@ def gradDescent(S, LS):
     plt.show()
 
 
-a = ex2.sample(1000, 10)
-gradDescent(a, ex2.calcLS(a))
+# a = ex2.sample(1000, 0.0001)
+# gradDescent(a, ex2.calcLS(a))
+b = ex2.sample(5, 1)
+gradDescent(b, ex2.calcLS(b))
+
+tf.
