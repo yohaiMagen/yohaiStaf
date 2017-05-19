@@ -67,15 +67,15 @@ ax2 = fig.add_subplot(132)
 ax3 = fig.add_subplot(133)
 
 popt1, pcov1 = curve_fit(func, lit_vec, interval)
-fitlabel = '${0:.3f}*x + {1:.3f}$'.format(popt1[0], popt1[1])
-ax1.plot(lit_vec , func(lit_vec , *popt1), 'r-', label=fitlabel)
+fitlabel = '${0:.3f}\cdot x + {1:.3f}$'.format(popt1[0], popt1[1])
+ax1.plot(lit_vec , func(lit_vec , *popt1), 'r-', label=fitlabel, color='c')
 ax1.plot(lit_vec, interval, 'ko', color='c', label='lithology to time interval')
 resiudal = interval - func(lit_vec, *popt1)
 ss_res = np.sum(resiudal ** 2)
 ss_tot = np.sum((interval - np.mean(interval)) ** 2)
 r_squared = 1 - (ss_res / ss_tot)
 leg = ax1.legend( loc=[0, .995])
-leg_r_squerd = "r^2 = {0:.3f}".format(r_squared)
+leg_r_squerd = "$R^2 = {0:.3f}$".format(r_squared)
 txt=offsetbox.TextArea(leg_r_squerd)
 box = leg._legend_box
 box.get_children().append(txt)
@@ -87,15 +87,15 @@ ax1.set_ylabel('days', fontsize = 22)
 
 
 popt1, pcov1 = curve_fit(func, thikness_vec, interval)
-fitlabel = '${0:.3f}*x + {1:.3f}$'.format(popt1[0], popt1[1])
-ax2.plot(thikness_vec , func(thikness_vec , *popt1), 'r-', label=fitlabel)
+fitlabel = '${0:.3f}\cdot x + {1:.3f}$'.format(popt1[0], popt1[1])
+ax2.plot(thikness_vec , func(thikness_vec , *popt1), 'r-', label=fitlabel, color='g')
 ax2.plot(thikness_vec, interval, 'ko', color='g', label='halite thikness to time interval')
 resiudal = interval - func(thikness_vec, *popt1)
 ss_res = np.sum(resiudal ** 2)
 ss_tot = np.sum((interval - np.mean(interval)) ** 2)
 r_squared = 1 - (ss_res / ss_tot)
 leg = ax2.legend( loc=[0, .995])
-leg_r_squerd = "r^2 = {0:.3f}".format(r_squared)
+leg_r_squerd = "$R^2 = {0:.3f}$".format(r_squared)
 txt=offsetbox.TextArea(leg_r_squerd)
 box = leg._legend_box
 box.get_children().append(txt)
@@ -106,8 +106,8 @@ ax2.set_xlabel('$\\frac{halite\:thikness}{halite\:thikness\:maximum}$', fontsize
 
 
 popt2, pcov2 = curve_fit(func, depth_vec, interval)
-fitlabel = '${0:.3f}*x \:{1:.3f}$'.format(popt2[0], popt2[1])
-ax3.plot(depth_vec , func(depth_vec , *popt2), 'r-', label=fitlabel)
+fitlabel = '${0:.3f}\cdot x \:{1:.3f}$'.format(popt2[0], popt2[1])
+ax3.plot(depth_vec , func(depth_vec , *popt2), 'r-', label=fitlabel, color='r')
 ax3.plot(depth_vec, interval, 'ko', color='r', label='halite depth to time interval')
 
 resiudal = interval - func(depth_vec, *popt2)
@@ -116,7 +116,7 @@ ss_tot = np.sum((interval - np.mean(interval)) ** 2)
 r_squared = 1 - (ss_res / ss_tot)
 
 leg = ax3.legend( loc=[0, .995])
-leg_r_squerd = "r^2 = {0:.3f}".format(r_squared)
+leg_r_squerd = "$R^2 = {0:.3f}$".format(r_squared)
 txt=offsetbox.TextArea(leg_r_squerd)
 box = leg._legend_box
 box.get_children().append(txt)
