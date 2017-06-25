@@ -1,0 +1,139 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from matplotlib.patches import Rectangle
+import pandas as pd
+import matplotlib.offsetbox as offsetbox
+
+def expfit(x, a, b, c):
+	return  np.exp(b*x)*a + c
+	
+def linfit(x, a, b):
+	return a*x + b
+	
+def R_2(X, Y, func, popt):
+	resiudal = Y - func(X, *popt)
+	ss_res = np.sum(resiudal ** 2)
+	ss_tot = np.sum((Y - np.mean(Y)) ** 2)
+	return 1 - (ss_res / ss_tot)
+
+
+input1= pd.read_excel("X:\\Nicole_n_Gil\\SinkHoles_Data\\opening intervals\\intervals_DATA.xlsx", sheetname="filterd_data")
+data = input1.as_matrix()
+data = data[:,[13,17]]
+
+
+#print(data)
+np.random.shuffle(data)
+#print("__________________________________")
+#print(data)
+#print(data.shape)
+
+interval = data[:,0]
+lit_vec = data[:,1]
+#print(interval)
+#print(lit_vec)
+
+x = 100000	
+EXP = 0
+POLY_1 = 0
+POLY_2 = 0
+POLY_3 = 0
+for j in range(x):
+	start = 0
+	end = 6
+	exp_loss = 0
+	x = np.linspace(0,1,100)
+	for i in range(0,6):
+		temp_lit = np.concatenate((lit_vec[0:start], lit_vec[end:35]))
+		temp_interval = np.concatenate((interval[0:start], interval[end:35]))
+		temp_lit = np.asfarray(temp_lit)
+		temp_interval = np.asfarray(temp_interval)
+		popt, pcov = curve_fit(expfit, temp_lit, temp_interval)
+		val_lit = np.asfarray(lit_vec[start:end])
+		val_interval = np.asfarray(interval[start:end])
+		resiudal = val_interval - expfit(val_lit, *popt)
+		r_2 = np.mean(resiudal**2)
+		r_2 = np.sqrt(r_2)
+		exp_loss += r_2
+		start = start + 6
+		end = end + 6
+
+	exp_loss = exp_loss/6
+
+	start = 0
+	end = 6
+	lin_loss = 0
+	for i in range(0,6):
+		temp_lit = np.concatenate((lit_vec[0:start], lit_vec[end:35]))
+		temp_interval = np.concatenate((interval[0:start], interval[end:35]))
+		temp_lit = np.asfarray(temp_lit)
+		temp_interval = np.asfarray(temp_interval)
+		popt, pcov = curve_fit(linfit, temp_lit, temp_interval)
+		val_lit = np.asfarray(lit_vec[start:end])
+		val_interval = np.asfarray(interval[start:end])
+		resiudal = val_interval - linfit(val_lit, *popt)
+		r_2 = np.mean(resiudal**2)
+		r_2 = np.sqrt(r_2)
+		lin_loss += r_2
+		start = start + 6
+		end = end + 6
+		
+	lin_loss = lin_loss/6
+
+	start = 0
+	end = 6
+	poly_loss = 0
+	for i in range(0,6):
+		temp_lit = np.concatenate((lit_vec[0:start], lit_vec[end:35]))
+		temp_interval = np.concatenate((interval[0:start], interval[end:35]))
+		temp_lit = np.asfarray(temp_lit)
+		temp_interval = np.asfarray(temp_interval)
+		popt = np.polyfit(temp_lit, temp_interval, 2)
+		p = np.poly1d(popt)
+		val_lit = np.asfarray(lit_vec[start:end])
+		val_interval = np.asfarray(interval[start:end])
+		resiudal = val_interval - p(val_lit)
+		r_2 = np.mean(resiudal**2)
+		r_2 = np.sqrt(r_2)
+		poly_loss += r_2
+		start = start + 6
+		end = end + 6
+		
+	poly_loss = poly_loss/6
+
+	start = 0
+	end = 6
+	poly_loss_3 = 0
+	for i in range(0,6):
+		temp_lit = np.concatenate((lit_vec[0:start], lit_vec[end:35]))
+		temp_interval = np.concatenate((interval[0:start], interval[end:35]))
+		temp_lit = np.asfarray(temp_lit)
+		temp_interval = np.asfarray(temp_interval)
+		popt = np.polyfit(temp_lit, temp_interval, 3)
+		p = np.poly1d(popt)
+		val_lit = np.asfarray(lit_vec[start:end])
+		val_interval = np.asfarray(interval[start:end])
+		resiudal = val_interval - p(val_lit)
+		r_2 = np.mean(resiudal**2)
+		r_2  = np.sqrt(r_2)
+		poly_loss_3 += r_2
+		start = start + 6
+		end = end + 6
+		
+	poly_loss_3 = poly_loss_3/6
+	
+	EXP += exp_loss
+	POLY_1 += lin_loss
+	POLY_2 += poly_loss
+	POLY_3 += poly_loss_3
+
+
+
+print(EXP/x)
+print(POLY_1/x)
+print(POLY_2/x)
+print(POLY_3/x)
+
+	
+plt.show()
