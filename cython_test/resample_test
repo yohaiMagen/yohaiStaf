@@ -1,0 +1,22 @@
+#for station if set to uniform distribute the station uniformly on the data otherwise load csv space delimiter withe station coordination
+#            lambda    mu    scen_size  pixel   station   cord        azimuth     nadir     smooth      beta
+global	     8e9         8e9      80   0.5       station.csv     sat       -20         30,40      False       5
+# displacement data
+#  file_type(tif,npy,...)           data_type(float64, int32....)           data_path
+disp    npy                                    float64                           synthetic_data.npy
+#for each plane:
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     20.0  35.0 -10.0   80   89      40            5	        4      1
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     19.9848471071   34.9140636742  -5.00076152422   80    89      40            2.5	        8      1
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     19.9772706607   34.8710955112  -2.50114228633   80    89      40            1.5	        8      1
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     19.9727247928   34.8453146135  -1.00137074359   80    89      40            .5	        16      1
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     19.9712095035   34.8367209809  -0.501446896014  80    89      40            .25	        32      1
+#      ORG:XO   YO   ZO   STK    DIP strike_length dip_length strike_sub dip_sub
+plain     19.9704518589   34.8324241646  -0.251484972225  80    89      40            .25	        32      1
+
+
+

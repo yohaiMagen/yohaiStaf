@@ -4,6 +4,7 @@ from matplotlib.pyplot import contourf, contour,\
     xlabel, ylabel, title, colorbar, show, savefig
 import matplotlib
 import time
+import numpy as np
 matplotlib.rcParams['font.family'] = 'serif'
 matplotlib.rcParams['font.serif'] = ['Computer Modern Roman']
 matplotlib.rcParams['text.usetex'] = True

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pylab as plt
+import pdb
 
 
 data = np.random.binomial(1, 0.25, (1000, 1000))
@@ -16,22 +17,20 @@ def mean(n):
 
 
 def chebyshev(n, eps):
-    return 1/(4*m*np.power(eps, 2))
+    return 1 / (4 * m * np.power(eps, 2))
 
 
 def hoeffding(n, eps):
-    return 2*np.exp(-2*n*np.power(eps, 2))
+    return 2 * np.exp(-2 * n * np.power(eps, 2))
 
 
 def sequwncesPrec(n, eps):
     prec = []
-    for i in range(1, n+1):
+    for i in range(1, n + 1):
         mean_i = np.mean(data[:, 0:i], axis=1)
         sum = np.sum(np.abs(mean_i - 0.25) >= eps)
         prec.append(float(sum) / data.shape[0])
     return prec
-
-
 
 
 def q1():
@@ -48,13 +47,16 @@ def q1():
     plt.plot(m, b5, color='g', label='row number 5')
     plt.legend()
 
+
 def q2A(eps):
     prec = sequwncesPrec(1000, eps)
-    plt.plot(m, prec, color='c', linewidth=2, label="percent of rows that satisfy $\\vert \\bar X_m - E(X) \\vert \\geq \\epsilon$")
-    a = chebyshev(m,eps)
+    plt.plot(m, prec, color='c', linewidth=2,
+             label="percent of rows that satisfy $\\vert \\bar X_m - E(X) \
+              \\vert\\geq \\epsilon$")
+
     plt.plot(m, chebyshev(m, eps), linewidth=2, label='chebyshev')
-    plt.plot(m, hoeffding(m, eps), color = 'r', linewidth=2, label='hoeffding')
-    plt.title("$\\varepsilon = $%f" %(eps))
+    plt.plot(m, hoeffding(m, eps), color='r', linewidth=2, label='hoeffding')
+    plt.title("$\\varepsilon = $%f" % (eps))
 
 
 def q2():
@@ -80,8 +82,7 @@ def q2():
     plt.legend(bbox_to_anchor=(0.9, 0.5))
 
 
+pdb.set_trace()
 q1()
 q2()
 plt.show()
-
-

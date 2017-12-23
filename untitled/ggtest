@@ -1,0 +1,9 @@
+from ggplot import *
+import numpy as np
+
+p = ggplot(diamonds, aes(x='price', color='clarity')) + \
+    geom_density() + \
+    scale_color_brewer(type='div', palette=7) + \
+    facet_wrap('cut')
+
+print(p)
